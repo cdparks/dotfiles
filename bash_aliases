@@ -7,7 +7,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-# Getting around
+# Navigation
 alias ..='cd ..; ls'
 
 # More ways to ls
@@ -19,13 +19,42 @@ alias l='ls -CF'
 alias pbcopy='xclip -i -selection clipboard'
 alias pbpaste='xclip -o -selection clipboard'
 
-# Databases
-# Change this to temporarily use psql
-export PSQL=pgcli
-alias dbdev="PGPASSWORD=password $PSQL -h localhost -U postgres -d classroom_dev"
-alias dbtest="PGPASSWORD=password $PSQL -h localhost -U postgres -d classroom_test"
-alias dbscratch="$PSQL -h localhost -U postgres -d scratch"
-
 # Switch to neovim
 alias vim='nvim'
 export EDITOR=nvim
+
+# Databases
+# Change this to temporarily use psql
+export PSQL=pgcli
+
+dbanalytics() {
+  RAILS_ENV=analytics ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
+}
+
+dbprod() {
+  RAILS_ENV=production ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
+}
+
+localdb() {
+  PGPASSWORD=password $PSQL -h localhost -U postgres -d "$1"
+}
+
+dbdev() {
+  localdb classroom_dev
+}
+
+dbtest() {
+  localdb classroom_test
+}
+
+# Broadcast my mistakes
+__sl() {
+  if [[ ! -e /tmp/trombone.ogg ]]; then
+    curl -s https://wompwompwomp.com/audio/sad-trombone.ogg > /tmp/trombone.ogg
+  fi;
+  canberra-gtk-play --file="/tmp/trombone.ogg"
+}
+
+sl() {
+  (__sl &)
+}

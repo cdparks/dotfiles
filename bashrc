@@ -84,25 +84,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-dbanalytics() {
-  RAILS_ENV=analytics ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
-}
-
-dbprod () {
-  RAILS_ENV=production ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
-}
-
-__sl() {
-  if [[ ! -e /tmp/trombone.ogg ]]; then
-    curl -s https://wompwompwomp.com/audio/sad-trombone.ogg > /tmp/trombone.ogg
-  fi;
-  canberra-gtk-play --file="/tmp/trombone.ogg"
-}
-
-sl() {
-  (__sl &)
-}
-
 reparent-guake() {
   printf 'parent=$(xwininfo -name "Guake!" -int -tree | sed -ne "/Root/s/[^0-9]//gp")\n'
   parent=$(xwininfo -name "Guake!" -int -tree | sed -ne '/Root/s/[^0-9]//gp')
