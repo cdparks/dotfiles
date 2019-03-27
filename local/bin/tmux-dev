@@ -47,7 +47,7 @@ comment_keys dev:0 "docker-compose up -d"
 popd
 
 # Logs window - one pane for fancy-api
-pushd "$REPO_ROOT/haskell/backend/fancy-api"
+pushd "$REPO_ROOT/backend/fancy-api"
 tmux new-window -t dev:1 -n "logs"
 popd
 
@@ -71,7 +71,7 @@ tmux new-window -t dev:3 -n "sql"
 popd
 
 # Backend window
-pushd "$REPO_ROOT/haskell/backend"
+pushd "$REPO_ROOT/backend"
 tmux new-window -t dev:4 -n "backend"
 popd
 
