@@ -233,14 +233,13 @@ let g:purescript_indent_in = 1
 " ----- w0rp/ale -----
 
 let g:ale_linters = {
-      \ 'haskell': ['hlint'],
+      \ 'haskell': [],
       \ }
 
 let g:ale_fixers = {
-      \ 'haskell': ['hlint', 'brittany', 'stylish-haskell'],
+      \ 'haskell': ['brittany', 'stylish-haskell'],
       \ }
 
-let g:ale_haskell_hlint_executable='stack'
 let g:ale_haskell_brittany_executable='stack'
 let g:ale_haskell_stylish_haskell_executable='stack'
 

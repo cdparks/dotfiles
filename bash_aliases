@@ -28,7 +28,7 @@ export EDITOR=nvim
 export PSQL=pgcli
 
 dbanalytics() {
-  RAILS_ENV=analytics ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
+  RAILS_ENV=production_readonly ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
 }
 
 dbprod() {
