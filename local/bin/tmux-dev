@@ -41,6 +41,7 @@ pushd "$REPO_ROOT"
 tmux new-session -s "dev" -n "docker/build" -d
 comment_keys dev:0 "Run these later"
 comment_keys dev:0 '$(aws --profile freckle ecr get-login --no-include-email)'
+comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
 comment_keys dev:0 "docker-compose pull"
 comment_keys dev:0 "docker-compose down"
 comment_keys dev:0 "docker-compose up -d"
