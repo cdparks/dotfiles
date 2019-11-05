@@ -28,11 +28,11 @@ export EDITOR=nvim
 export PSQL=pgcli
 
 dbanalytics() {
-  RAILS_ENV=production_readonly ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
+  RAILS_ENV=production_readonly ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
 }
 
 dbprod() {
-  RAILS_ENV=production ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL -W
+  RAILS_ENV=production ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
 }
 
 localdb() {
