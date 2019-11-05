@@ -36,13 +36,6 @@
 :set -XTypeApplications
 :set -XTypeFamilies
 :set -XTypeFamilyDependencies
--- :set -XTypeInType
-
--- Nice-to-have imports
--- import Data.Kind
--- import Data.Proxy
--- import Data.Typeable (Typeable, typeRep)
--- import GHC.Generics (Generic)
 
 -- Add extra definitions here
 
@@ -52,19 +45,17 @@ let
   the a = a
 
 -- Show instance for function that also shows monomorphized type with defaulting
--- instance (Typeable (a -> b)) => Show (a -> b) where
---   showsPrec d f =
---     showString "<function> :: "
---     . showsPrec d (typeRep $ asProxyTypeOf f)
+instance Show (a -> b) where
+  showsPrec _ _ = showString "<function>"
 
 -- All warnings
 :set -Wall
 
 -- Add more information to types
--- :set -fprint-explicit-foralls
--- :set -fprint-explicit-runtime-reps
--- :set -fprint-explicit-kinds
--- :set -fprint-unicode-syntax
+:set -fprint-explicit-foralls
+:set -fprint-explicit-runtime-reps
+:set -fprint-explicit-kinds
+:set -fprint-unicode-syntax
 
 -- Show type (keep this last to avoid printing defs above)
 :set +t
