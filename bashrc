@@ -73,6 +73,23 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Paths
+add_to_path=(
+  '/Applications/Racket v7.2/bin'
+  '/Library/TeX/texbin'
+  '/Applications/Julia-1.2.app/Contents/Resources/julia/bin'
+  "$HOME/.cargo/bin"
+  '/usr/local/bin'
+  '/usr/local/opt/llvm/bin'
+  "$HOME/.local/bin"
+)
+
+for new_path in "${add_to_path[@]}"; do
+  if [ -d "$new_path" ]; then
+    export PATH="$new_path:$PATH"
+  fi
+done
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

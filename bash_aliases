@@ -16,12 +16,15 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # Copy/paste
-alias pbcopy='xclip -i -selection clipboard'
-alias pbpaste='xclip -o -selection clipboard'
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  alias pbcopy='xclip -i -selection clipboard'
+  alias pbpaste='xclip -o -selection clipboard'
+fi
 
 # Switch to neovim
 alias vim='nvim'
 export EDITOR=nvim
+export PSQL_EDITOR="/usr/local/bin/nvim"
 
 # Databases
 # Change this to temporarily use psql
