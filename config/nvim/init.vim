@@ -251,7 +251,7 @@ let g:ale_fix_on_save = 1
 " ----- sbdchd/neoformat -----
 
 let g:neoformat_javascript_prettier = {
-      \ 'exe': expand('~/code/megarepo/frontend/frontend-entities/node_modules/.bin/prettier'),
+      \ 'exe': expand('~/code/megarepo/frontend/node_modules/.bin/prettier'),
       \ 'args': ['--stdin', '--stdin-filepath', '%:p'],
       \ 'stdin': 1,
       \ }

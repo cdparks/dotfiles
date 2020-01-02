@@ -31,7 +31,8 @@ then
   printf " 5: frontend\n"
   printf " 6: ops\n"
   printf " 7: qa\n"
-  printf " 8: scratch\n"
+  printf " 8: asana\n"
+  printf " 9: scratch\n"
   printf "\n"
   exit 2
 fi
@@ -91,9 +92,14 @@ pushd "$REPO_ROOT/qa"
 tmux new-window -t dev:7 -n "qa"
 popd
 
+# Asana window
+pushd "$REPO_ROOT/../asana"
+tmux new-window -t dev:8 -n "asana"
+popd
+
 # Scratch window
 pushd "$REPO_ROOT"
-tmux new-window -t dev:8 -n "scratch"
+tmux new-window -t dev:9 -n "scratch"
 popd
 
 # Start in backend window
