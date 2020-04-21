@@ -24,7 +24,7 @@ fi
 # Switch to neovim
 alias vim='nvim'
 export EDITOR=nvim
-export PSQL_EDITOR="/usr/local/bin/nvim"
+export PSQL_EDITOR="/usr/bin/nvim"
 
 # Databases
 # Change this to temporarily use psql

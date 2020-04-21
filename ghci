@@ -1,10 +1,5 @@
 -- Disable at the command line with -ignore-dot-ghci
 
--- Purple prompt and multiline input
-:set +m
-:set prompt "\ESC[1;35m> \ESC[m"
-:set prompt-cont "\ESC[1;35m| \ESC[m"
-
 -- Extensions to deriving
 :set -XDeriveDataTypeable
 :set -XDeriveFoldable
@@ -36,6 +31,11 @@
 :set -XTypeApplications
 :set -XTypeFamilies
 :set -XTypeFamilyDependencies
+
+-- Purple prompt and multiline input
+:set +m
+:set prompt "\ESC[1;35m> \ESC[m"
+:set prompt-cont "\ESC[1;35m| \ESC[m"
 
 -- Add extra definitions here
 
