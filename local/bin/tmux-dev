@@ -98,7 +98,7 @@ tmux new-window -t dev:8 -n "asana"
 popd
 
 # Scratch window
-pushd "$REPO_ROOT"
+pushd "$REPO_ROOT/../"
 tmux new-window -t dev:9 -n "scratch"
 popd
 
