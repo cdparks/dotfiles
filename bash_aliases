@@ -30,16 +30,28 @@ export PSQL_EDITOR="/usr/bin/nvim"
 # Change this to temporarily use psql
 export PSQL=pgcli
 
-dbanalytics() {
-  RAILS_ENV=production_readonly ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
-}
-
-dbprod() {
-  RAILS_ENV=production ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
+authdb() {
+  RAILS_ENV="$1" USE_RDS_IAM_AUTH="$2" ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
 }
 
 localdb() {
-  PGPASSWORD=password $PSQL -h localhost -U postgres -d "$1"
+  PGPASSWORD=password PGHOST=localhost PGUSER=postgres $PSQL -d "$1"
+}
+
+dbprod() {
+  authdb production ''
+}
+
+dbstaging() {
+  authdb staging x
+}
+
+dbdemo() {
+  authdb demo x
+}
+
+dbanalytics() {
+  authdb production_engineer_readonly x
 }
 
 dbdev() {
