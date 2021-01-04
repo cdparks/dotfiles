@@ -34,6 +34,14 @@ authdb() {
   RAILS_ENV="$1" USE_RDS_IAM_AUTH="$2" ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
 }
 
+ephemeral() {
+  if [ "$#" -ne 1 ]; then
+    echo "usage: ephemeral DBNAME"
+    exit 2
+  fi
+  PGDATABASE="$1" authdb ephemeral x
+}
+
 localdb() {
   PGPASSWORD=password PGHOST=localhost PGUSER=postgres $PSQL -d "$1"
 }
