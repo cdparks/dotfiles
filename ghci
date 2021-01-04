@@ -37,6 +37,13 @@
 :set prompt "\ESC[1;35m> \ESC[m"
 :set prompt-cont "\ESC[1;35m| \ESC[m"
 
+-- Almost always need these
+import Prelude
+import Control.Monad
+import Control.Applicative
+import Data.Foldable
+import Data.Traversable
+
 -- Add extra definitions here
 
 -- e.g. the @Double 4
@@ -52,10 +59,10 @@ instance Show (a -> b) where
 :set -Wall
 
 -- Add more information to types
-:set -fprint-explicit-foralls
-:set -fprint-explicit-runtime-reps
-:set -fprint-explicit-kinds
-:set -fprint-unicode-syntax
+-- :set -fprint-explicit-foralls
+-- :set -fprint-explicit-runtime-reps
+-- :set -fprint-explicit-kinds
+-- :set -fprint-unicode-syntax
 
 -- Show type (keep this last to avoid printing defs above)
 :set +t
