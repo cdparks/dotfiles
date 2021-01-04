@@ -80,6 +80,7 @@ popd
 # Frontend window
 pushd "$REPO_ROOT/frontend"
 tmux new-window -t dev:5 -n "frontend"
+comment_keys dev:5 "nvm use v10.16.0"
 popd
 
 # Ops window
@@ -106,4 +107,4 @@ popd
 tmux select-window -t dev:4
 
 # Actually attach to session
-tmux -2 attach-session -t "dev"
+tmux -2 attach-session -t dev
