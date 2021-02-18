@@ -82,6 +82,7 @@ add_to_path=(
   '/usr/local/bin'
   '/usr/local/opt/llvm/bin'
   "$HOME/.local/bin"
+  "$HOME/.cargo/bin"
 )
 
 for new_path in "${add_to_path[@]}"; do

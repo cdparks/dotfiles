@@ -42,10 +42,6 @@ ephemeral() {
   PGDATABASE="$1" authdb ephemeral x
 }
 
-localdb() {
-  PGPASSWORD=password PGHOST=localhost PGUSER=postgres $PSQL -d "$1"
-}
-
 dbprod() {
   authdb production ''
 }
@@ -60,6 +56,10 @@ dbdemo() {
 
 dbanalytics() {
   authdb production_engineer_readonly x
+}
+
+localdb() {
+  PGPASSWORD=password PGHOST=localhost PGUSER=postgres $PSQL -d "$1"
 }
 
 dbdev() {
