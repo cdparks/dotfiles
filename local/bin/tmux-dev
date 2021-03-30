@@ -41,7 +41,7 @@ fi
 pushd "$REPO_ROOT"
 tmux new-session -s "dev" -n "docker/build" -d
 comment_keys dev:0 "Run these later"
-comment_keys dev:0 '$(aws --profile freckle ecr get-login --no-include-email)'
+comment_keys dev:0 "aws ecr get-login-password | docker login --username AWS --password-stdin 853032795538.dkr.ecr.us-east-1.amazonaws.com"
 comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
 comment_keys dev:0 "docker-compose pull"
 comment_keys dev:0 "docker-compose down"
