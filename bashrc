@@ -76,8 +76,10 @@ fi
 # Paths
 add_to_path=(
   '/Applications/Racket v7.2/bin'
+  '/Applications/love.app/Contents/MacOS'
   '/Library/TeX/texbin'
-  '/Applications/Julia-1.2.app/Contents/Resources/julia/bin'
+  '/Library/Frameworks/Mono.framework/Versions/Current/bin'
+  '/Applications/Julia-1.3.app/Contents/Resources/julia/bin'
   "$HOME/.cargo/bin"
   '/usr/local/bin'
   '/usr/local/opt/llvm/bin'

@@ -27,6 +27,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'purescript-contrib/purescript-vim'
   Plug 'frigoeu/psc-ide-vim'
 
+  " Julia plugin for Ahorn
+  Plug 'JuliaEditorSupport/julia-vim'
+
   " ALE
   Plug 'w0rp/ale'
 
@@ -264,4 +267,3 @@ let g:fzf_action = {
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit'
       \ }
-
