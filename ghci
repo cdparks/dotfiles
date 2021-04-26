@@ -6,9 +6,10 @@
 :set -XDeriveFunctor
 :set -XDeriveGeneric
 :set -XDeriveTraversable
+:set -XDerivingStrategies
 :set -XStandaloneDeriving
 
--- Extensions type classes
+-- Extensions to type classes
 :set -XFlexibleContexts
 :set -XFlexibleInstances
 :set -XFunctionalDependencies
@@ -32,6 +33,9 @@
 :set -XTypeFamilies
 :set -XTypeFamilyDependencies
 
+-- Dangerous in general, but almost always useful for Text, ByteString
+:set -XOverloadedStrings
+
 -- Purple prompt and multiline input
 :set +m
 :set prompt "\ESC[1;35m> \ESC[m"
@@ -39,21 +43,71 @@
 
 -- Almost always need these
 import Prelude
-import Control.Monad
 import Control.Applicative
+import Control.Monad
 import Data.Foldable
+import Data.Function ((&), fix, on)
+import Data.Functor.Const (Const(..))
+import Data.Functor.Identity (Identity(..))
+import Data.List.NonEmpty (NonEmpty(..), (<|))
+import Data.List (sort, sortOn, sortBy)
+import Data.Map.Strict (Map)
+import Data.Proxy
+import Data.Set (Set)
 import Data.Traversable
+import GHC.Generics (Generic)
+import qualified Data.List.NonEmpty as NE
+import qualified Data.Map.Strict as Map
+import qualified Data.Set as Set
 
 -- Add extra definitions here
 
 -- e.g. the @Double 4
-let
-  the :: forall a. a -> a
-  the a = a
+:{
+the :: forall a. a -> a
+the a = a
+:}
 
 -- Show instance for function that also shows monomorphized type with defaulting
 instance Show (a -> b) where
   showsPrec _ _ = showString "<function>"
+
+-- Basic lens w/o dependencies
+type Lens s t a b = forall f. Functor f => (a -> f b) -> s -> f t
+type Lens' s a = Lens s s a a
+
+type Getting r s a = (a -> Const r a) -> s -> Const r s
+type ASetter s t a b = (a -> Identity b) -> s -> Identity t
+
+:{
+lens :: (s -> a) -> (s -> b -> t) -> Lens s t a b
+lens sa sbt afb s = sbt s <$> afb (sa s)
+
+view :: Getting a s a -> s -> a
+view l = getConst . l Const
+
+infixl 8 ^.
+(^.) :: s -> Getting a s a -> a
+(^.) = flip view
+
+over :: ASetter s t a b -> (a -> b) -> s -> t
+over l f = runIdentity . l (Identity . f)
+
+infixr 4 %~
+(%~) :: ASetter s t a b -> (a -> b) -> s -> t
+(%~) = over
+
+set :: ASetter s t a b -> b -> s -> t
+set l = over l . const
+
+infixr 4 .~
+(.~) :: ASetter s t a b -> b -> s -> t
+(.~) = set
+
+infixr 4 ?~
+(?~) :: ASetter s t a (Maybe b) -> b -> s -> t
+l ?~ b = l .~ Just b
+:}
 
 -- All warnings
 :set -Wall
