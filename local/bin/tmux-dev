@@ -48,19 +48,11 @@ comment_keys dev:0 "docker-compose down"
 comment_keys dev:0 "docker-compose up -d"
 popd
 
-# Logs window - one pane for fancy-api
+# Window for postgres logs
 pushd "$REPO_ROOT/backend/fancy-api"
 tmux new-window -t dev:1 -n "logs"
-popd
-
-# And one pane for postgres logs
-pushd "$REPO_ROOT"
-tmux split-window -t dev:1
 comment_keys dev:1 "docker-compose logs --tail=30 -f postgres"
 popd
-
-# Split window evenly
-tmux select-layout even-vertical
 
 # Text-assets window
 pushd "$REPO_ROOT/text-assets"
