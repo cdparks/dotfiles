@@ -11,9 +11,6 @@ call plug#begin('~/.config/nvim/plugged')
   " Solarized theme
   Plug 'altercation/vim-colors-solarized'
 
-  " Python scripting support
-  Plug 'roxma/python-support.nvim'
-
   " Haskell plugins
   Plug 'neovimhaskell/haskell-vim'
 
@@ -135,9 +132,6 @@ endif
 " Enable Solarized color scheme
 colorscheme solarized
 set background=dark
-
-" Disable python3
-let g:python_support_python3_require = 0
 
 " Enable Solarized airline and don't display INSERT mode
 let g:airline_theme='solarized'
