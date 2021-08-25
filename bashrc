@@ -80,11 +80,10 @@ add_to_path=(
   '/Library/TeX/texbin'
   '/Library/Frameworks/Mono.framework/Versions/Current/bin'
   '/Applications/Julia-1.3.app/Contents/Resources/julia/bin'
-  "$HOME/.cargo/bin"
   '/usr/local/bin'
   '/usr/local/opt/llvm/bin'
-  "$HOME/.local/bin"
   "$HOME/.cargo/bin"
+  "$HOME/.local/bin"
 )
 
 for new_path in "${add_to_path[@]}"; do
@@ -124,3 +123,4 @@ export NVM_DIR="$HOME/.nvm"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+. "$HOME/.cargo/env"

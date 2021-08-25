@@ -24,6 +24,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'purescript-contrib/purescript-vim'
   Plug 'frigoeu/psc-ide-vim'
 
+  " TSX/React plugins
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
+
   " Julia plugin for Ahorn
   Plug 'JuliaEditorSupport/julia-vim'
 
@@ -231,6 +235,7 @@ let g:purescript_indent_in = 1
 
 let g:ale_linters = {
       \ 'haskell': [],
+      \ 'rust': ['analyzer'],
       \ }
 
 let g:ale_fixers = {
@@ -257,7 +262,10 @@ let g:neoformat_javascript_prettier = {
 nnoremap <Leader>f :FZF<cr>
 
 let g:fzf_action = {
-      \ 'enter': 'split',
+      \ 'enter': 'vsplit',
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit'
       \ }
+
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *ts,*.tsx set filetype=typescript
