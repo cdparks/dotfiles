@@ -84,6 +84,7 @@ add_to_path=(
   '/usr/local/opt/llvm/bin'
   "$HOME/.cargo/bin"
   "$HOME/.local/bin"
+  "$HOME/.pyenv/bin"
 )
 
 for new_path in "${add_to_path[@]}"; do
@@ -115,14 +116,10 @@ fix-tmux-paste() {
 }
 
 # FZF
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
 
 # Cargo
-[ -f ~/.cargo/env ] && source ~/.cargo/env
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# ghcup
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
