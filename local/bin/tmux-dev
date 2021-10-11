@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_ROOT=~/code/megarepo
+ROOT=~/code
 
 # Silent pushd
 pushd() {
@@ -23,80 +23,37 @@ then
   printf "tmux-dev [--help|-h]\n"
   printf "\n"
   printf "Opens the following windows:\n"
-  printf " 0: docker/build\n"
-  printf " 1: logs\n"
-  printf " 2: text-assets\n"
-  printf " 3: sql\n"
-  printf " 4: backend\n"
-  printf " 5: frontend\n"
-  printf " 6: ops\n"
-  printf " 7: qa\n"
-  printf " 8: asana\n"
-  printf " 9: scratch\n"
+  printf " 0: engine\n"
+  printf " 1: lux\n"
+  printf " 2: scratch\n"
   printf "\n"
   exit 2
 fi
 
-# Docker/Build window
-pushd "$REPO_ROOT"
-tmux new-session -s "dev" -n "docker/build" -d
+# code/graphql-engine-mono
+pushd "$ROOT/graphql-engine-mono"
+tmux new-session -s "dev" -n "engine" -d
 comment_keys dev:0 "Run these later"
 comment_keys dev:0 "aws ecr get-login-password | docker login --username AWS --password-stdin 853032795538.dkr.ecr.us-east-1.amazonaws.com"
 comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
 comment_keys dev:0 "docker-compose pull"
 comment_keys dev:0 "docker-compose down"
 comment_keys dev:0 "docker-compose up -d"
+comment_keys dev:0 "docker-compose logs --tail=30 -f postgres"
 popd
 
-# Window for postgres logs
-pushd "$REPO_ROOT/backend/fancy-api"
-tmux new-window -t dev:1 -n "logs"
-comment_keys dev:1 "docker-compose logs --tail=30 -f postgres"
-popd
-
-# Text-assets window
-pushd "$REPO_ROOT/text-assets"
-tmux new-window -t dev:2 -n "text-assets"
-popd
-
-# Sql window
-pushd "$REPO_ROOT/sql"
-tmux new-window -t dev:3 -n "sql"
-popd
-
-# Backend window
-pushd "$REPO_ROOT/backend"
-tmux new-window -t dev:4 -n "backend"
-popd
-
-# Frontend window
-pushd "$REPO_ROOT/frontend"
-tmux new-window -t dev:5 -n "frontend"
-comment_keys dev:5 "nvm use v10.16.0"
-popd
-
-# Ops window
-pushd "$REPO_ROOT/ops"
-tmux new-window -t dev:6 -n "ops"
-popd
-
-# QA window
-pushd "$REPO_ROOT/qa"
-tmux new-window -t dev:7 -n "qa"
-popd
-
-# Asana window
-pushd "$REPO_ROOT/../asana"
-tmux new-window -t dev:8 -n "asana"
+# code/lux
+pushd "$ROOT/lux"
+tmux new-window -t dev:1 -n "lux"
 popd
 
 # Scratch window
-pushd "$REPO_ROOT/../"
-tmux new-window -t dev:9 -n "scratch"
+pushd "$ROOT"
+tmux new-window -t dev:2 -n "scratch"
 popd
 
-# Start in backend window
-tmux select-window -t dev:4
+# Start in engine pane
+tmux select-window -t dev:0
 
 # Actually attach to session
 tmux -2 attach-session -t dev
