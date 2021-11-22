@@ -129,9 +129,24 @@ else
   let g:solarized_termtrans=1
 endif
 
+" Disable solarized menu highlighting
+let g:solarized_menu=0
+
+" More contrast please
+let g:solarized_contrast="high"
+
+" Change hint background color to magenta
+func! s:my_colors_setup() abort
+    hi CocHintSign ctermfg=5 guifg=#ff00ff
+endfunc
+
+augroup colorscheme_coc_setup | au!
+    au ColorScheme * call s:my_colors_setup()
+augroup END
+
 " Enable Solarized color scheme
-colorscheme solarized
 set background=dark
+colorscheme solarized
 
 " Enable Solarized airline and don't display INSERT mode
 let g:airline_theme='solarized'
@@ -274,17 +289,17 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   elseif (coc#rpc#ready())
-"     call CocActionAsync('doHover')
-"   else
-"     execute '!' . &keywordprg . " " . expand('<cword>')
-"   endif
-" endfunction
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
