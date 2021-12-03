@@ -29,5 +29,8 @@
       }
     }
   },
-  "rust-analyzer.inlayHints.typeHints": false
+  "rust-analyzer.inlayHints.typeHints": false,
+  "rust-analyzer.diagnostics.disabled": [
+    "macro-error"
+  ]
 }
