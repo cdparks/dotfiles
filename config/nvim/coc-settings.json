@@ -23,7 +23,7 @@
       ],
       "initializationOptions": {
         "haskell": {
-          "formattingProvider": "ormolu",
+          "formattingProvider": "brittany",
           "formatOnImportOn": false
         }
       }
