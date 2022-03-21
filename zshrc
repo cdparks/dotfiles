@@ -63,3 +63,6 @@ source ~/.zsh_aliases
 
 # ghcup
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+
+# ssh agent
+[ -f "$HOME/.ssh" ] && ssh-add -A
