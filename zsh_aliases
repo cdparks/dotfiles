@@ -1,0 +1,18 @@
+# neovim
+alias vim=nvim
+export EDITOR=nvim
+export PSQL_EDITOR=/usr/bin/nvim
+
+# use color
+export CLICOLOR=1
+
+# navigation
+alias ..='cd ..; ls'
+
+# More ways to ls
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# change this to temporarily use psql
+export PSQL=pgcli
