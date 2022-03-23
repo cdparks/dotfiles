@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ROOT=~/code
-
 # Silent pushd
 pushd() {
   command pushd "$@" > /dev/null
@@ -23,18 +21,18 @@ then
   printf "tmux-dev [--help|-h]\n"
   printf "\n"
   printf "Opens the following windows:\n"
-  printf " 0: engine\n"
-  printf " 1: lux\n"
+  printf " 0: code\n"
+  printf " 1: dotfiles\n"
   printf " 2: scratch\n"
   printf "\n"
   exit 2
 fi
 
-# code/graphql-engine-mono
-pushd "$ROOT/graphql-engine-mono"
-tmux new-session -s "dev" -n "engine" -d
+# code pane
+pushd "$HOME/code"
+tmux new-session -s "dev" -n "code" -d
 comment_keys dev:0 "Run these later"
-comment_keys dev:0 "aws ecr get-login-password | docker login --username AWS --password-stdin 853032795538.dkr.ecr.us-east-1.amazonaws.com"
+comment_keys dev:0 "aws ecr get-login-password | docker login --username AWS --password-stdin <instance>"
 comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
 comment_keys dev:0 "docker-compose pull"
 comment_keys dev:0 "docker-compose down"
@@ -42,17 +40,17 @@ comment_keys dev:0 "docker-compose up -d"
 comment_keys dev:0 "docker-compose logs --tail=30 -f postgres"
 popd
 
-# code/lux
-pushd "$ROOT/lux"
-tmux new-window -t dev:1 -n "lux"
+# dotfiles pane
+pushd "$HOME/dotfiles"
+tmux new-window -t dev:1 -n "dotfiles"
 popd
 
-# Scratch window
-pushd "$ROOT"
+# scratch pane
+pushd "$HOME"
 tmux new-window -t dev:2 -n "scratch"
 popd
 
-# Start in engine pane
+# Start in code pane
 tmux select-window -t dev:0
 
 # Actually attach to session

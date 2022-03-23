@@ -6,6 +6,9 @@ setopt NO_CASE_GLOB
 # allow tab to actually complete commands
 setopt GLOB_COMPLETE
 
+# allow comments at interactive prompt
+setopt interactivecomments
+
 # if a directory is used like a command, cd into that directory
 # setopt AUTO_CD
 
@@ -53,16 +56,21 @@ for new_path in "${add_to_path[@]}"; do
   fi
 done
 
-source ~/.zsh_aliases
+# sources
+sources=(
+  "$HOME/.zsh_aliases"
+  "$HOME/.fzf.zsh"
+  "$HOME/.cargo/env"
+  "$HOME/.ghcup/env"
+)
 
-# FZF
-[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
-
-# Cargo
-[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-
-# ghcup
-[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+for new_source in "${sources[@]}"; do
+  if [ -f "$new_source" ]; then
+    source "$new_source"
+  else
+    printf 'missing source %s\n' "$new_source"
+  fi
+done
 
 # ssh agent
 [ -f "$HOME/.ssh" ] && ssh-add -A
