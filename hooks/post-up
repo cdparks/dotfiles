@@ -1,8 +1,9 @@
+#!/usr/bin/env bash
+
 # Download fzf
-if [ ! -e $HOME/.fzf ]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-end
-$HOME/.fzf/install --no-update-rc
+which -a fzf > /dev/null || (
+  git clone --depth 2 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install --no-update-rc --key-bindings --completion
+)
 
 # Install vim-plug then install plugins
 if [ ! -e $HOME/.config/nvim/autoload/plug.vim ]; then
