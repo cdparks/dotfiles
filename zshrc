@@ -6,6 +6,9 @@ setopt NO_CASE_GLOB
 # allow tab to actually complete commands
 setopt GLOB_COMPLETE
 
+# emacs line-editing controls (ctrl-A, ctrl-E, etc.)
+bindkey -e
+
 # allow comments at interactive prompt
 setopt interactivecomments
 
@@ -41,21 +44,6 @@ setopt HIST_VERIFY
 setopt CORRECT
 setopt CORRECT_ALL
 
-# paths
-add_to_path=(
-  '/usr/local/bin'
-  '/opt/homebrew/bin'
-  "$HOME/.local/bin"
-)
-
-for new_path in "${add_to_path[@]}"; do
-  if [ -d "$new_path" ]; then
-    export PATH="$new_path:$PATH"
-  else
-    printf 'missing path %s\n' "$new_path"
-  fi
-done
-
 # sources
 sources=(
   "$HOME/.zsh_aliases"
@@ -74,3 +62,33 @@ done
 
 # ssh agent
 [ -f "$HOME/.ssh" ] && ssh-add -A
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# more llvm
+if [ -d "/opt/homebrew/opt/llvm@12" ]; then
+  export LDFLAGS="-L/opt/homebrew/opt/llvm@12/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/llvm@12/include"
+fi
+
+# add paths to control priority
+add_to_path=(
+  '/usr/local/bin'
+  '/usr/local/homebrew/bin'
+  '/opt/homebrew/bin'
+  "$HOME/.local/bin"
+  '/opt/homebrew/opt/llvm@12/bin'
+)
+
+for new_path in "${add_to_path[@]}"; do
+  if [ -d "$new_path" ]; then
+    export PATH="$new_path:$PATH"
+  else
+    printf 'missing path %s\n' "$new_path"
+  fi
+done
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
