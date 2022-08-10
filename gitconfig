@@ -2,3 +2,14 @@
 	email = chris.parks@crowdstrike.com
 	name = Chris Parks
   editor = nvim
+[init]
+	defaultBranch = main
+[alias]
+	s = status
+	d = diff
+	l = log
+	co = checkout
+	ln = log --name-only
+	ca = commit --amend
+	ri = "!__rebase() { git rebase --interactive $1; }; __rebase"
+
