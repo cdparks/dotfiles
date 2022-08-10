@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env arch -arm64 zsh
+
+##!/bin/zsh
 
 # Silent pushd
-pushd() {
-  command pushd "$@" > /dev/null
+pushd_() {
+  pushd "$@" > /dev/null
 }
 
 # Silent popd
-popd() {
-  command popd > /dev/null
+popd_() {
+  popd > /dev/null
 }
 
 # Send keys as a comment
@@ -21,36 +23,55 @@ then
   printf "tmux-dev [--help|-h]\n"
   printf "\n"
   printf "Opens the following windows:\n"
-  printf " 0: code\n"
-  printf " 1: dotfiles\n"
-  printf " 2: scratch\n"
+  printf " 0: gestalt\n"
+  printf " 1: gerald\n"
+  printf " 2: liveness\n"
+  printf " 3: dfaweb\n"
+  printf " 4: dotfiles\n"
+  printf " 5: sensor\n"
+  printf " 6: scratch\n"
   printf "\n"
   exit 2
 fi
 
 # code pane
-pushd "$HOME/code"
-tmux new-session -s "dev" -n "code" -d
-comment_keys dev:0 "Run these later"
-comment_keys dev:0 "aws ecr get-login-password | docker login --username AWS --password-stdin <instance>"
+pushd_ "$HOME/code/gestalt"
+tmux new-session -s "dev" -n "gestalt" -d
+comment_keys dev:0 "Reminder to clear out docker nonsense occasionally:"
 comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
-comment_keys dev:0 "docker-compose pull"
-comment_keys dev:0 "docker-compose down"
-comment_keys dev:0 "docker-compose up -d"
-comment_keys dev:0 "docker-compose logs --tail=30 -f postgres"
-popd
+popd_
+
+# gerald pane
+pushd_ "$HOME/code/gerald"
+tmux new-window -t dev:1 -n "gerald"
+popd_
+
+# liveness pane
+pushd_ "$HOME/code/liveness-query-compiler"
+tmux new-window -t dev:2 -n "liveness"
+popd_
+
+# dfaweb pane
+pushd_ "$HOME/code/dfaweb"
+tmux new-window -t dev:3 -n "dfaweb"
+popd_
+
 
 # dotfiles pane
-pushd "$HOME/dotfiles"
-tmux new-window -t dev:1 -n "dotfiles"
-popd
+pushd_ "$HOME/dotfiles"
+tmux new-window -t dev:4 -n "dotfiles"
+popd_
 
-# scratch pane
-pushd "$HOME"
-tmux new-window -t dev:2 -n "scratch"
-popd
+# scratch panes
+pushd_ "$HOME/code/sensor"
+tmux new-window -t dev:5 -n "sensor"
+popd_
 
-# Start in code pane
+pushd_ "$HOME"
+tmux new-window -t dev:6 -n "scratch"
+popd_
+
+# Start in gestalt pane
 tmux select-window -t dev:0
 
 # Actually attach to session
