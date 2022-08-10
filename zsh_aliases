@@ -16,3 +16,7 @@ alias l='ls -CF'
 
 # change this to temporarily use psql
 export PSQL=pgcli
+
+# get non-M1 brew stuff
+alias 86='arch -x86_64'
+alias xbrew='86 /usr/local/homebrew/bin/brew'
