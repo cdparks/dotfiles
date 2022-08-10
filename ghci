@@ -45,16 +45,19 @@
 import Prelude
 import Control.Applicative
 import Control.Monad
+import Data.Bits
 import Data.Foldable
 import Data.Function ((&), fix, on)
 import Data.Functor.Const (Const(..))
 import Data.Functor.Identity (Identity(..))
+import Data.Int
 import Data.List.NonEmpty (NonEmpty(..), (<|))
 import Data.List (sort, sortOn, sortBy)
 import Data.Map.Strict (Map)
 import Data.Proxy
 import Data.Set (Set)
 import Data.Traversable
+import Data.Word
 import GHC.Generics (Generic)
 import qualified Data.List.NonEmpty as NE
 import qualified Data.Map.Strict as Map
@@ -66,6 +69,35 @@ import qualified Data.Set as Set
 :{
 the :: forall a. a -> a
 the a = a
+:}
+
+-- Print integers in binary and hexidecimal
+import Numeric (showIntAtBase)
+import Data.Char (intToDigit)
+import Data.Bits (FiniteBits(..))
+
+:{
+hexP :: forall a. (FiniteBits a, Integral a, Show a) => a -> String
+hexP = ("0x" <>) . baseP 16
+
+hex :: forall a. (Integral a, Show a) => a -> String
+hex = ("0x" <>) . base 0 16
+
+binP :: forall a. (FiniteBits a, Integral a, Show a) => a -> String
+binP = ("0b" <>) . baseP 2
+
+bin :: forall a. (FiniteBits a, Integral a, Show a) => a -> String
+bin = ("0b" <>) . base 0 2
+
+baseP :: forall a. (FiniteBits a, Integral a, Show a) => a -> a -> String
+baseP = base $ finiteBitSize (0 :: a)
+
+base:: forall a. (Integral a, Show a) => Int -> a -> a -> String
+base maxBits b i = prefix <> s
+ where
+  s = showIntAtBase b intToDigit i ""
+  prefix = replicate (len - length s) '0'
+  len = maxBits `div` (fromIntegral b `div` 2)
 :}
 
 -- Show instance for function that also shows monomorphized type with defaulting
