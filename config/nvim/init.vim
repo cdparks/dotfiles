@@ -53,6 +53,12 @@ call plug#begin('~/.config/nvim/plugged')
 
   " Digraphs
   Plug 'chrisbra/unicode.vim'
+
+  " Snippet engine
+  Plug 'SirVer/ultisnips'
+
+  " Snippets
+  Plug 'honza/vim-snippets'
 call plug#end()
 
 " Show matching brackets
@@ -406,3 +412,14 @@ let g:fzf_action = {
 
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *ts,*.tsx set filetype=typescript
+
+" ----- SirVer/ultisnips -----
+let g:UltiSnipsExpandTrigger=";"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Faster than searching path, apparently
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
