@@ -55,7 +55,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'chrisbra/unicode.vim'
 
   " Snippet engine
-  Plug 'SirVer/ultisnips'
+  " Plug 'SirVer/ultisnips'
 
   " Snippets
   Plug 'honza/vim-snippets'
@@ -194,6 +194,10 @@ command! Watch exec '10new term://stack build --fast --pedantic --test --no-run-
 " Copy to clipboard
 vnoremap <leader>y "+y
 nnoremap <leader>y "+y
+
+" Cut to clipboard
+vnoremap <leader>d "+d
+nnoremap <leader>d "+d
 
 " Paste from clipboard
 nnoremap <leader>p "+p
@@ -413,13 +417,13 @@ let g:fzf_action = {
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *ts,*.tsx set filetype=typescript
 
-" ----- SirVer/ultisnips -----
-let g:UltiSnipsExpandTrigger=";"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" " ----- SirVer/ultisnips -----
+" let g:UltiSnipsExpandTrigger=";"
+" let g:UltiSnipsJumpForwardTrigger="<C-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+" 
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
 
 " Faster than searching path, apparently
-let g:python3_host_prog = '/opt/homebrew/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'

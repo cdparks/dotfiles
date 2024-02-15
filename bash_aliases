@@ -26,58 +26,20 @@ alias vim='nvim'
 export EDITOR=nvim
 export PSQL_EDITOR="/usr/bin/nvim"
 
+# Bel signal
+alias bel='echo -ne "\007"'
+
 # Databases
 # Change this to temporarily use psql
 export PSQL=pgcli
 
-authdb() {
-  RAILS_ENV="$1" USE_RDS_IAM_AUTH="$2" ~/code/megarepo/sql/scripts/run-command-ssh-tunnel.sh $PSQL
-}
-
-ephemeral() {
-  if [ "$#" -ne 1 ]; then
-    echo "usage: ephemeral DBNAME"
-    exit 2
-  fi
-  PGDATABASE="$1" authdb ephemeral x
-}
-
-dbprod() {
-  authdb production ''
-}
-
-dbstaging() {
-  authdb staging x
-}
-
-dbdemo() {
-  authdb demo x
-}
-
-dbanalytics() {
-  authdb production_engineer_readonly x
-}
-
-localdb() {
-  PGPASSWORD=password PGHOST=localhost PGUSER=postgres $PSQL -d "$1"
-}
-
-dbdev() {
-  localdb classroom_dev
-}
-
-dbtest() {
-  localdb classroom_test
-}
-
-# Broadcast my mistakes
-__sl() {
-  if [[ ! -e /tmp/trombone.ogg ]]; then
-    curl -s https://wompwompwomp.com/audio/sad-trombone.ogg > /tmp/trombone.ogg
-  fi;
-  canberra-gtk-play --file="/tmp/trombone.ogg"
-}
-
-sl() {
-  (__sl &)
-}
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  export CSROOT=/mnt/c/CrowdStrike
+  export _CSROOT=$CSROOT
+  export _CSBUILDROOT="$CSROOT/private/sensor/build"
+else
+  export CSROOT=$HOME/sources/crowdstrike
+  export _CSROOT=$CSROOT
+  export _CSBUILDROOT="$CSROOT/private/sensor/build"
+  export ANY_MAC=1
+fi

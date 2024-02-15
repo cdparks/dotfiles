@@ -18,61 +18,76 @@ comment_keys() {
   tmux send-keys -t"$1" Enter
 }
 
+if [ $(uname) = "Darwin" ]; then
+  dirs=(
+    "$HOME/sources/crowdstrike/private/sensor"
+    "$HOME/code/dfa-core"
+    "$HOME/code/dfa-debugger"
+    "$HOME/code/gestalt"
+    "$HOME/code/dfaweb"
+    "$HOME/code/gerald"
+    "$HOME/code/gerald-service"
+    "$HOME/code/liveness-query-compiler"
+    "$HOME/dotfiles"
+    "$HOME"
+  )
+  names=(
+    "sensor"
+    "dfa-core"
+    "dfa-debugger"
+    "gestalt"
+    "dfaweb"
+    "gerald"
+    "migo"
+    "liveness"
+    "dotfiles"
+    "scratch"
+  )
+else
+  dirs=(
+    "$CSROOT/private/sensor"
+    "$HOME/dotfiles"
+    "$HOME"
+  )
+  names=(
+    "sensor"
+    "dotfiles"
+    "scratch"
+  )
+fi
+
+i=0
 if [ -n "$1" ];
 then
-  printf "tmux-dev [--help|-h]\n"
-  printf "\n"
+  printf "tmux-dev [--help|-h]\n\n"
   printf "Opens the following windows:\n"
-  printf " 0: gestalt\n"
-  printf " 1: gerald\n"
-  printf " 2: liveness\n"
-  printf " 3: dfaweb\n"
-  printf " 4: dotfiles\n"
-  printf " 5: sensor\n"
-  printf " 6: scratch\n"
+  i=0
+  for name in $names;
+  do
+    printf "  %d: %s\n" "$i" "$name"
+    ((i++))
+  done
   printf "\n"
   exit 2
 fi
 
-# code pane
-pushd_ "$HOME/code/gestalt"
-tmux new-session -s "dev" -n "gestalt" -d
-comment_keys dev:0 "Reminder to clear out docker nonsense occasionally:"
-comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
-popd_
+for dir in $dirs;
+do
+  name=$names[((i + 1))]
+  pushd_ "$dir"
+  if [[ "$i" -eq 0 ]]
+  then
+    tmux new-session -s "dev" -n "$name" -d
+    comment_keys dev:0 "Reminder to clear out docker nonsense occasionally:"
+    comment_keys dev:0 "docker system prune --all --volumes # (note: destructive)"
+  else
+    tmux new-window -t dev:"$i" -n "$name"
+  fi
+  popd_ "$dir"
+  ((i++))
+done
 
-# gerald pane
-pushd_ "$HOME/code/gerald"
-tmux new-window -t dev:1 -n "gerald"
-popd_
-
-# liveness pane
-pushd_ "$HOME/code/liveness-query-compiler"
-tmux new-window -t dev:2 -n "liveness"
-popd_
-
-# dfaweb pane
-pushd_ "$HOME/code/dfaweb"
-tmux new-window -t dev:3 -n "dfaweb"
-popd_
-
-
-# dotfiles pane
-pushd_ "$HOME/dotfiles"
-tmux new-window -t dev:4 -n "dotfiles"
-popd_
-
-# scratch panes
-pushd_ "$HOME/code/sensor"
-tmux new-window -t dev:5 -n "sensor"
-popd_
-
-pushd_ "$HOME"
-tmux new-window -t dev:6 -n "scratch"
-popd_
-
-# Start in gestalt pane
-tmux select-window -t dev:0
+tmux select-window -t dev:1
 
 # Actually attach to session
 tmux -2 attach-session -t dev

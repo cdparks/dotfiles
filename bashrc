@@ -85,6 +85,7 @@ add_to_path=(
   "$HOME/.cargo/bin"
   "$HOME/.local/bin"
   "$HOME/.pyenv/bin"
+  "$HOME/.rd/bin"
 )
 
 for new_path in "${add_to_path[@]}"; do

@@ -20,3 +20,36 @@ export PSQL=pgcli
 # get non-M1 brew stuff
 alias 86='arch -x86_64'
 alias xbrew='86 /usr/local/homebrew/bin/brew'
+
+# Run Xcode 14.2 on Sonoma
+alias xc='/Applications/Xcode_14.2.app/Contents/MacOS/Xcode'
+
+# Bel signal
+alias bel='echo -ne "\007"'
+
+pdot() {
+  if [ "$#" -ne 1 ]; then
+    echo "usage: pdot <basename> # where basename.dot exists"
+    return 2
+  fi
+  dot -Tpng "$1.dot" -o "$1.png" && open "$1.png"
+}
+
+sdot() {
+  if [ "$#" -ne 1 ]; then
+    echo "usage: sdot <basename> # where basename.dot exists"
+    return 2
+  fi
+  dot -Tsvg "$1.dot" -o "$1.svg" && open "$1.svg"
+}
+
+if [ $(uname) = "Darwin" ]; then
+  export CSROOT=$HOME/sources/crowdstrike
+  export _CSROOT=$CSROOT
+  export _CSBUILDROOT="$CSROOT/private/sensor/build"
+  export ANY_MAC=1
+else
+  export CSROOT=/mnt/c/CrowdStrike
+  export _CSROOT=$CSROOT
+  export _CSBUILDROOT="$CSROOT/private/sensor/build"
+fi

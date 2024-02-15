@@ -6,6 +6,7 @@
 	defaultBranch = main
 [alias]
 	s = status
+	st = status
 	d = diff
 	l = log
 	co = checkout
